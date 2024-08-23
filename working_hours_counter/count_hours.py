@@ -2,9 +2,10 @@ import sys
 import re
 
 def main():
+    
     check_args()
     hours = 0
-    payment = float(input("Hour wage: "))
+    wage = float(sys.argv[2])
     with open(sys.argv[1], "r") as file:
         for line in file:
             if line == "\n": continue
@@ -12,10 +13,10 @@ def main():
 
     hours = round(hours,2)
     print("Sum of hours: ", hours)
-    print("Salary: ", f"{hours} * {payment} =", round(hours * payment,2), "zł")
+    print("Salary: ", f"{hours} * {wage} =", round(hours * wage,2), "zł")
 
 def count_hours(line):
-    matches = re.search(r"^.*(\d{1,2}):(\d{2})\D*(\d{1,2}):(\d{2})$", line)
+    matches = re.search(r"^\d*\D*(\d{1,2}):(\d{2})\D*-\D*(\d{1,2}):(\d{2})$", line)
     times = list()
     for _ in range(4):
         times.append(float(matches.group(_+1)))
@@ -28,8 +29,8 @@ def count_hours(line):
 
 
 def check_args():
-    if len(sys.argv) != 2:
-        sys.exit("\nPass a file name as a second argument! \n")
+    if len(sys.argv) != 3:
+        sys.exit("\nPass a correct number of args\n")
     
 
 
