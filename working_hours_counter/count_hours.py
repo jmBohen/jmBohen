@@ -3,9 +3,9 @@ import re
 
 def main():
     
-    check_args()
+    
     hours = 0
-    wage = float(sys.argv[2])
+    wage = check_args()
     with open(sys.argv[1], "r") as file:
         for line in file:
             if line == "\n": continue
@@ -31,7 +31,12 @@ def count_hours(line):
 def check_args():
     if len(sys.argv) != 3:
         sys.exit("\nPass a correct number of args\n")
-    
+    try:
+        wage = float(sys.argv[2])
+    except ValueError:
+        sys.exit("\nPass a correct wage\n")
+    else:
+        return wage
 
 
 if __name__ == "__main__":
